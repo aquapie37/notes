@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net;
+using System.ComponentModel;
+//root 03.11.2016
+namespace random123
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+
+
+
+            DosyaIndir("http://mo.ciner.com.tr/assets/images/haberturk-logo.png", "C:/Users/Ogrenci/Downloads/", "deneme.jpg");
+            Console.ReadKey();
+        
+        }
+
+static void DosyaIndir(string URL, string IndirilecekDizin, string DosyaAdi)
+{
+    WebClient webClient = new WebClient();
+    webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+    webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(ProgressChanged);
+    webClient.DownloadFileAsync(new Uri(URL), IndirilecekDizin + "/" + DosyaAdi);
+}
+private static void ProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+{
+    Console.WriteLine("Dosya indiriliyor: %{0}", e.ProgressPercentage);
+    Console.Read();
+}
+private static void Completed(object sender, AsyncCompletedEventArgs e)
+{
+    Console.WriteLine("Dosya indirme tamamlandı.");
+    Console.Read();
+}
+        }
+    }

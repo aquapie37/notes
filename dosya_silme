@@ -1,0 +1,80 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace dosya_silme
+{
+    public partial class Form1 : Form
+    {
+
+        string silinecekDosya = "";
+
+        public Form1()
+        {
+            InitializeComponent();
+
+
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            txt_dosya_adresi.Enabled = false;
+
+
+
+        }
+
+      public void btn_silinecek_Click(object sender, EventArgs e)
+        {
+
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();  
+
+            openFileDialog1.FileName = "";
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+
+           
+                silinecekDosya = openFileDialog1.FileName.ToString();
+
+              txt_dosya_adresi.Text = silinecekDosya;
+
+            }
+
+            else
+            {
+
+                MessageBox.Show("Dosya Seçmediniz...", "Uyarı..!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+        }
+
+      private void btn_islem_Click(object sender, EventArgs e)
+      {
+
+          if (silinecekDosya != "")
+          {
+
+              File.Delete(silinecekDosya);
+
+              MessageBox.Show("Dosya Silme İşlemi Başarılı...", "Dosya Silindi...");
+
+          }
+
+          else
+          {
+
+              MessageBox.Show("Dosya Seçiniz...", "Uyarı..!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+          }
+      }
+    }
+}
